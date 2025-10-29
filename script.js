@@ -28,6 +28,9 @@ form.addEventListener('submit', (e) => {
     div.appendChild(header);
     div.appendChild(paragraph);
 
+    if (typeReservation.value === 'vip') {
+        div.style.cssText = 'color : white; background-color : red; padding : 20px; margin-bottom: 5px';
+    }
 });
 
 
