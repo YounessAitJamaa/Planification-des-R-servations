@@ -28,7 +28,7 @@
   <div class="container mt-4">
     <div class="row">
       <div class="col text-center mb-3">
-        <button type="button" class="btn btn-outline-primary" id="add" data-bs-toggle="modal" data-bs-target="#form">Ajouter réservations</button>
+        <button type="button" class="btn btn-outline-primary fw-bold" id="add" data-bs-toggle="modal" data-bs-target="#form">Ajouter réservations</button>
       </div>
     </div>
 
@@ -57,13 +57,11 @@
                 <label for="jour" class="form-label">Jour</label>
                 <select class="form-select" id="jour" required>
                   <option value="">Choisissez...</option>
-                  <option value="sur_place">Lundi</option>
-                  <option value="anniversaire">Mardi</option>
-                  <option value="vip">Mercredi</option>
-                  <option value="autre">Jeudi</option>
-                  <option value="autre">Vendredi</option>
-                  <option value="autre">Samedi</option>
-                  <option value="autre">Dimanch</option>
+                  <option value="Lundi">Lundi</option>
+                  <option value="Mardi">Mardi</option>
+                  <option value="Mercredi">Mercredi</option>
+                  <option value="Jeudi">Jeudi</option>
+                  <option value="Vendredi">Vendredi</option>
                 </select>
               </div>
 
@@ -74,26 +72,25 @@
               </div>
 
               <!-- Heure de fin -->
-              <div class="mb-3">
+              <!-- <div class="mb-3">
                 <label for="heureFin" class="form-label">Heure de fin</label>
                 <input type="time" class="form-control" id="heureFin" required>
-              </div>
+              </div> -->
 
               <!-- Nombre de personnes -->
-              <div class="mb-3">
+              <!-- <div class="mb-3">
                 <label for="nombrePersonnes" class="form-label">Nombre de personnes</label>
                 <input type="number" class="form-control" id="nombrePersonnes" min="1" placeholder="Ex: 4" required>
-              </div>
+              </div> -->
 
               <!-- Type de réservation -->
               <div class="mb-3">
                 <label for="typeReservation" class="form-label">Type de réservation</label>
                 <select class="form-select" id="typeReservation" required>
                   <option value="">Choisissez...</option>
-                  <option value="sur_place">Sur place</option>
+                  <option value="Standard">Standard</option>
                   <option value="anniversaire">Anniversaire</option>
                   <option value="vip">VIP</option>
-                  <option value="autre">Autre</option>
                 </select>
               </div>          
           </div>
@@ -101,7 +98,7 @@
           <!-- Pied de modal -->
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-            <button type="submit" class="btn btn-success">Valider</button>
+            <button type="submit" class="btn btn-success" id="add">Valider</button>
           </div>
           </form>
 
@@ -110,26 +107,23 @@
     </div>
       
     <div class="row">
-        <div class="col border p-3 text-center fw-bold">Lundi</div>
-        <div class="col border p-3 text-center fw-bold">Mardi</div>
-        <div class="col border p-3 text-center fw-bold">Mercredi</div>
-        <div class="col border p-3 text-center fw-bold">Jeudi</div>
-        <div class="col border p-3 text-center fw-bold">Vendredi</div>
-        <div class="col border p-3 text-center fw-bold ">Samedi</div>
-        <div class="col border p-3 text-center fw-bold">Dimanch</div>
+        <div class="col border p-3 text-center bg-primary text-white fw-bold">Lundi</div>
+        <div class="col border p-3 text-center bg-primary text-white fw-bold">Mardi</div>
+        <div class="col border p-3 text-center bg-primary text-white fw-bold">Mercredi</div>
+        <div class="col border p-3 text-center bg-primary text-white fw-bold">Jeudi</div>
+        <div class="col border p-3 text-center bg-primary text-white fw-bold">Vendredi</div>
     </div>
     <div class="row">
-        <div class="col border p-3 fw-bold"></div>
-        <div class="col border p-3 fw-bold"></div>
-        <div class="col border p-3 fw-bold"></div>
-        <div class="col border p-3 fw-bold"></div>
-        <div class="col border p-3 fw-bold"></div>
-        <div class="col border p-3 fw-bold"></div>
-        <div class="col border p-3 fw-bold"></div>
+        <div class="col border p-3 fw-bold" id="Lundi"></div>
+        <div class="col border p-3 fw-bold" id="Mardi"></div>
+        <div class="col border p-3 fw-bold" id="Mercredi"></div>
+        <div class="col border p-3 fw-bold" id="Jeudi"></div>
+        <div class="col border p-3 fw-bold" id="Vendredi"></div>
     </div>
   </div>
 
   <!-- Bootstrap JS Bundle -->
   <script src="bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
