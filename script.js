@@ -37,6 +37,24 @@ form.addEventListener('submit', (e) => {
     else if (typeReservation.value === 'anniversaire') {
         div.style.cssText = 'color : white; background-color : blue; padding : 20px; margin-bottom: 5px';
     }
+
+    switch (day) {
+        case 'Lundi': 
+            Lundi.appendChild(div);
+            break;
+        case 'Mardi':
+            Mardi.appendChild(div);
+            break;
+        case 'Mercredi':
+            Mercredi.appendChild(div);
+            break;
+        case 'Jeudi':
+            Jeudi.appendChild(div);
+            break;
+        case 'Vendredi':
+            Vendredi.appendChild(div);
+            break;
+    }
 });
 
 
