@@ -7,3 +7,15 @@ const Jeudi = document.getElementById('Jeudi');
 const Vendredi = document.getElementById('Vendredi');
 
 
+const form = document.getElementById('reservationForm');
+const typeReservation = document.getElementById('typeReservation');
+
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name =  document.getElementById('nomClient').value;
+    const day = document.getElementById('jour').value;
+    const heurDebut = document.getElementById('heureDebut').value;
+});
+
+
