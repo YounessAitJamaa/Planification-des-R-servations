@@ -16,6 +16,10 @@ form.addEventListener('submit', (e) => {
     const name =  document.getElementById('nomClient').value;
     const day = document.getElementById('jour').value;
     const heurDebut = document.getElementById('heureDebut').value;
+
+    const div = document.createElement('div');
+    const paragraph = document.createElement('p');
+    const header = document.createElement('h4');
 });
 
 
