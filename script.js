@@ -25,11 +25,7 @@ form.addEventListener('submit', (e) => {
     header.textContent = `Réservation ${typeReservation.value.toUpperCase()} pour : ${name}`;
     paragraph.textContent = `Début à : ${heurDebut}`;
 
-    div.appendChild(header);
-    div.appendChild(paragraph);
 
-    header.ondblclick = () => makeEditable(header);
-    paragraph.ondblclick = () => makeEditable(paragraph);
 });
 
 
