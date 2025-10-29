@@ -34,6 +34,9 @@ form.addEventListener('submit', (e) => {
     else if (typeReservation.value === 'Standard') {
         div.style.cssText = 'color : white; background-color : green; padding : 20px; margin-bottom: 5px';
     }
+    else if (typeReservation.value === 'anniversaire') {
+        div.style.cssText = 'color : white; background-color : blue; padding : 20px; margin-bottom: 5px';
+    }
 });
 
 
