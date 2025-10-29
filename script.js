@@ -31,6 +31,9 @@ form.addEventListener('submit', (e) => {
     if (typeReservation.value === 'vip') {
         div.style.cssText = 'color : white; background-color : red; padding : 20px; margin-bottom: 5px';
     }
+    else if (typeReservation.value === 'Standard') {
+        div.style.cssText = 'color : white; background-color : green; padding : 20px; margin-bottom: 5px';
+    }
 });
 
 
