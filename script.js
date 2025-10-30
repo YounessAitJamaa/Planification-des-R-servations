@@ -1,77 +1,79 @@
-// Getting the days 
-const Lundi = document.getElementById('Lundi');
-const Mardi = document.getElementById('Mardi');
-const Mercredi = document.getElementById('Mercredi');
-const Jeudi = document.getElementById('Jeudi');
-const Vendredi = document.getElementById('Vendredi');
-
-const form = document.getElementById('reservationForm');
-const typeReservation = document.getElementById('typeReservation');
-
-let editing = null;
-
-form.addEventListener('submit', (e) => {
-e.preventDefault();
-
-const name = document.getElementById('nomClient').value;
-const day = document.getElementById('jour').value;
-const heurDebut = document.getElementById('heureDebut').value;
-const type = typeReservation.value;
-
-const div = document.createElement('div');
-div.innerHTML = `
-    <h5 class="fw-bold mb-1">Réservation ${type.toUpperCase()} pour : ${name}</h5>
-    <p class="mb-0">Début à : ${heurDebut}</p>
-    `;
-
-const deleteBtn = document.createElement('button');
-deleteBtn.textContent = 'Supprimer';
-deleteBtn.classList.add('btn', 'btn-light', 'btn-sm', 'mt-2', 'text-danger', 'fw-bold');
-div.appendChild(deleteBtn);
-
-const editBtn = document.createElement('button');
-editBtn.textContent = 'Edit';
-editBtn.classList.add('btn', 'btn-light', 'btn-sm', 'mt-2', 'ms-2', 'text-success', 'fw-bold');
-div.appendChild(editBtn);
-
-
-div.style.cssText = `
-    color: white;
-    padding: 15px;
-    margin-bottom: 8px;
-    border-radius: 8px;
-    cursor: pointer;
-`;
-if (type === 'vip') div.style.backgroundColor = 'red';
-else if (type === 'Standard') div.style.backgroundColor = 'green';
-else if (type === 'anniversaire') div.style.backgroundColor = 'blue';
-
-
-switch (day) {
-    case 'Lundi': Lundi.appendChild(div); break;
-    case 'Mardi': Mardi.appendChild(div); break;
-    case 'Mercredi': Mercredi.appendChild(div); break;
-    case 'Jeudi': Jeudi.appendChild(div); break;
-    case 'Vendredi': Vendredi.appendChild(div); break;
+// Generate dropdown time options (08:00 → 19:00 every 15 min)
+const debut = document.getElementById("heureDebut");
+const fin = document.getElementById("heureFin");
+for(let h = 8; h <= 19; h++) {
+    for(let m = 0; m < 60; m += 15) {
+    if (h === 19 && m > 0) break;
+    const hh = h.toString().padStart(2, '0');
+    const mm = m.toString().padStart(2, '0');
+    const opt = document.createElement("option");
+    opt.value = `${hh}:${mm}`;
+    opt.textContent = `${hh}:${mm}`;
+    debut.appendChild(opt); 
+    }
 }
 
+for(let h = 8; h <= 19; h++) {
+    for(let m = 0; m < 60; m += 15) {
+    if (h === 19 && m > 0) break;
+    const hh = h.toString().padStart(2, '0');
+    const mm = m.toString().padStart(2, '0');
+    const opt = document.createElement("option");
+    opt.value = `${hh}:${mm}`;
+    opt.textContent = `${hh}:${mm}`;
+    fin.appendChild(opt); 
+    }
+}
 
-form.reset();
-const modal = bootstrap.Modal.getInstance(document.getElementById('form'));
-modal.hide();
+// Generate time column (08:00 → 19:00)
+const timeColumn = document.getElementById("timeColumn");
+for (let h = 8; h <= 19; h++) {
+    for (let m = 0; m < 60; m += 15) {
+    if (h === 19 && m > 0) break;
+    const hh = h.toString().padStart(2, "0");
+    const mm = m.toString().padStart(2, "0");
+    const div = document.createElement("div");
+    div.className = "time-label";
+    div.textContent = `${hh}:${mm}`;
+    timeColumn.appendChild(div);
+    }
+}
 
-deleteBtn.addEventListener('click', () => div.remove());
+// Generate time slots for each day
+function generateDaySlots(dayId) {
+    const dayDiv = document.getElementById(dayId);
+    for (let h = 8; h <= 19; h++) {
+    for (let m = 0; m < 60; m += 15) {
+        if (h === 19 && m > 0) break;
+        const hh = h.toString().padStart(2, "0");
+        const mm = m.toString().padStart(2, "0");
+        const slot = document.createElement("div");
+        slot.className = "time-slot";
+        slot.dataset.time = `${hh}:${mm}`;
+        dayDiv.appendChild(slot);
+    }
+    }
+}
 
-editBtn.addEventListener('click', () => {
-    editing = div;
+["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"].forEach(day => generateDaySlots(day));
 
-    modal.show();
+// Handle form submission
+document.getElementById("reservationForm").addEventListener("submit", function(e) {
+    e.preventDefault();
 
-    document.getElementById('nomClient').value = name;
-    document.getElementById('jour').value = day;
-    document.getElementById('heureDebut').value = heurDebut;
-    document.getElementById('typeReservation').value = type;
-});
+    const nom = document.getElementById("nomClient").value;
+    const jour = document.getElementById("jour").value;
+    const heure = document.getElementById("heureDebut").value;
+    const type = document.getElementById("typeReservation").value;
 
+    const event = document.createElement("div");
+    event.className = `event ${type}`;
+    event.innerHTML = `<strong>${nom}</strong><br> ${heure} . ${type}`;
 
+    const slot = document.querySelector(`#${jour} .time-slot[data-time="${heure}"]`);
+    if (slot) slot.appendChild(event);
+
+    document.getElementById("reservationForm").reset();
+    const modal = bootstrap.Modal.getInstance(document.getElementById('form'));
+    modal.hide();
 });

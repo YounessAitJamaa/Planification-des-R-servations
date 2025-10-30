@@ -1,7 +1,107 @@
-.calendar-header {
+body {
+    background-color: #f5f7fa;
+    font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+/* Navbar */
+.navbar {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Main container */
+.calendar-container {
+    display: flex;
+    gap: 5px;
+    overflow-x: auto;
+    padding-bottom: 30px;
+}
+
+/* Time column */
+.time-column {
+    flex: 0 0 70px;
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid #dee2e6;
+    text-align: right;
+    padding-right: 8px;
+    color: #6c757d;
+    font-size: 0.85rem;
+    margin-top: 4%;
+
+}
+
+.time-label {
+    height: 50px;
+    line-height: 35px;
+    border-bottom: 1px solid #f1f3f5;
+}
+
+/* Days grid */
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    flex: 1;
+}
+
+.calendar-day {
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    padding: 15px 25px;
-    margin-bottom: 25px;
-}  
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border: 1px solid #e4e6eb;
+    display: flex;
+    flex-direction: column;
+}
+
+.day-title {
+    text-align: center;
+    background-color: #f8f9fa;
+    font-weight: 600;
+    padding: 8px;
+    border-bottom: 1px solid #dee2e6;
+    color: #4285f4;
+}
+
+.day {
+    display: flex;
+    flex-direction: column;
+}
+
+.time-slot {
+    border-bottom: 1px solid hsla(240, 1%, 15%, 0.29);
+    height: 50px;
+    position: relative;
+}
+
+.time-slot:hover {
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+/* Event styles */
+.event {
+    position: absolute;
+    top: 2px;
+    left: 5px;
+    right: 5px;
+    font-size: 0.8rem;
+    padding: 3px 6px;
+    border-radius: 6px;
+    background-color: #e8f0fe;
+    border-left: 4px solid #4285f4;
+}
+
+.event.Vip {
+    border-left-color: #ea4335;
+    background-color: #fde8e7;
+}
+
+.event.Anniversaire {
+    border-left-color: #fbbc04;
+    background-color: #fff7e1;
+}
+
+.event.Standard {
+    border-left-color: #34a853;
+    background-color: #e6f4ea;
+}

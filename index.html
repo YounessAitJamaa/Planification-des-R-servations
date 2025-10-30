@@ -25,7 +25,7 @@
   <div class="container">
 
     <div class="mb-3 text-center">
-      <p class="fw-bold">Légende des réservations :</p>
+      <p class="fw-bold">Legende des reservations :</p>
       <div class="d-flex justify-content-center gap-3 flex-wrap"> 
         <span class="badge bg-success p-2 px-3">Standard</span>
         <span class="badge bg-warning p-2 px-3 text-dark">Anniversaire</span>
@@ -33,21 +33,119 @@
       </div>
     </div>
 
-    <div class="calendar-header d-flex align-items-center justify-content-between">
+    <!-- Header -->
+    <div class="calendar-header d-flex align-items-center justify-content-between m-4">
       <div>
         <button class="btn btn-outline-secondary me-2"><i class="bi bi-chevron-left"></i></button>
         <button class="btn btn-outline-secondary me-3"><i class="bi bi-chevron-right"></i></button>
         <h4 class="d-inline-block">Semaine du 28 Oct - 1 Nov</hd>
       </div>
         <button class="btn btn-primary" data-bs-toggle = "modal" data-bs-target = "#form">
-          <i class="bi bi-plus-lg me-1"></i> Nouvelle réservation
+          <i class="bi bi-plus-lg me-1"></i> Nouvelle reservation
         </button>
+    </div>
+
+    <!-- Calendar -->
+    <div class="calendar-container">
+
+      <div class="time-column fw-bold" id="timeColumn"></div>
+      <div class="days-grid"> 
+
+        <div class="calendar-day">
+          <div class="day-title">Lundi</div>
+          <div id="Lundi" class="day"></div>
+        </div>
+
+        <div class="calendar-day">
+          <div class="day-title">Mardi</div>
+          <div id="Mardi" class="day"></div>
+        </div>
+
+        <div class="calendar-day">
+          <div class="day-title">Mercredi</div>
+          <div id="Mercredi" class="day"></div>
+        </div>
+
+        <div class="calendar-day">
+          <div class="day-title">Jeudi</div>
+          <div id="Jeudi" class="day"></div>
+        </div>
+
+        <div class="calendar-day">
+          <div class="day-title">Vendredi</div>
+          <div id="Vendredi" class="day"></div>
+        </div>
+
+      </div>
     </div>
   </div>
 
-  
+  <div class="modal" id="form">
+    <div class="modal-dialog modal-dialog-centered"> 
+      <div class="modal-content">
 
-  <!-- Bootstrap JS Bundle -->
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="reservationModalLabel">Ajouter une réservation</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+
+        <form id="reservationForm">
+
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Nom du client</label>
+              <input type="text" class="form-control" id="nomClient" placeholder="Entrez votre nom" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Jour</label>
+              <select class="form-select" id="jour" required>
+                <option value="">Choisissez...</option>
+                <option value="Lundi">Lundi</option>
+                <option value="Mardi">Mardi</option>
+                <option value="Mercredi">Mercredi</option>
+                <option value="Jeudi">Jeudi</option>
+                <option value="Vendredi">Vendredi</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Heure de début</label>
+              <select class="form-select" id="heureDebut" required></select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Heure de fin</label>
+              <select class="form-select" id="heureFin" required></select>
+            </div>
+
+            <div class="mb-3">
+              <label for="form-label">Nombre de personnes</label>
+              <input type="number" class="form-control" id="nombrePersonnes" placeholder="Entrez Entrez votre nom" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Type de réservation</label>
+              <select class="form-select" id="typeReservation" required>
+                <option value="">Choisissez...</option>
+                <option value="Standard">Standard</option>
+                <option value="Anniversaire">Anniversaire</option>
+                <option value="Vip">VIP</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-success">Valider</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
   <script src="bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
   <script src="script.js"></script>
 </body>
