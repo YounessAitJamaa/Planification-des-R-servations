@@ -72,6 +72,10 @@ function displayReservation(r) {
     <h5>${r.nom}</h5>
     <button class='btn-close delete'></button>
   `;
+
+  requestAnimationFrame(() => {
+    event.classList.add("show");
+  });
 //   
   spcae.appendChild(event); 
 
@@ -82,7 +86,9 @@ function displayReservation(r) {
   const deleteBtn = event.querySelector('.delete');
   deleteBtn.addEventListener('click', (e) => {
     e.stopPropagation();
-    deleteReservation(r.Id);
+
+    event.classList.remove('show');
+    setTimeout(() => deleteReservation(r.Id), 500) ;
   });
 }
 
@@ -201,6 +207,15 @@ document.querySelectorAll('.time-space').forEach(space => {
     modal.show();
   })
 })
+
+modalEl.addEventListener('shown.bs.modal', () => {
+  document.getElementById('nomClient').focus();
+});
+
+modalEl.addEventListener('hidden.bs.modal', () => {
+  lastClickedButton.focus();
+});
+
 
 // saved Reservations to show
 const savedReservations = JSON.parse(localStorage.getItem("reservations")) || [];

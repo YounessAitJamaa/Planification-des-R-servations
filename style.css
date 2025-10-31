@@ -93,6 +93,14 @@ body {
     border-left: 4px solid #4285f4;
     display: flex;
     justify-content: space-between;
+    opacity: 0;            
+    transform: translateY(-10px); 
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.event.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .delete {
