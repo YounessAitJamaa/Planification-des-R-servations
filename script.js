@@ -139,12 +139,12 @@ document.getElementById("reservationForm").addEventListener("submit", function (
 
   // validation for Time
   if (heureDebut > heureFin) {
-        alert("L'heure de fin doit être après l'heure de début !");
+    alert("L'heure de fin doit être après l'heure de début !");
     return;
   }
 
-  if (nbPers < 0) {
-    alert('le nombre de personne doit etre seperieur a 0');
+  if (nbPers < 1) {
+    alert('Le nombre de personnes doit être supérieur ou égal à 1.');
     return;
   }
 
