@@ -132,8 +132,19 @@ document.getElementById("reservationForm").addEventListener("submit", function (
   const nbPers = document.getElementById("nombrePersonnes").value;
   const type = document.getElementById("typeReservation").value;
 
+  if (nom.trim() == "" || nom.startsWith(" ") || nom.trim().length < 3) {
+    alert('Le nom ne peut pas être vide ou commencer par un espace !');
+    return;
+  }
+
+  // validation for Time
   if (heureDebut > heureFin) {
         alert("L'heure de fin doit être après l'heure de début !");
+    return;
+  }
+
+  if (nbPers < 0) {
+    alert('le nombre de personne doit etre seperieur a 0');
     return;
   }
 
