@@ -73,24 +73,29 @@ function displayReservation(r) {
     modifyReservation(r.Id);
   })
 
-  const deleteBtn = document.querySelector('.delete');
-  deleteBtn.addEventListener('click', () => {
+  const deleteBtn = event.querySelector('.delete');
+  deleteBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
     deleteReservation(r.Id);
   });
 }
 
 
+// Delete a reservation
 function deleteReservation(Id){ 
   const index = reservations.findIndex(r => r.Id === Id);
-  if (index !== 1) return;
+  if (index === -1) return;
 
   reservations.splice(index, 1);
 
-  localStorage.setItem('reservation', JSON.stringify(reservations));
+  localStorage.setItem('reservations', JSON.stringify(reservations));
   
   document.querySelectorAll('.event').forEach(e => e.remove());
-  eservations.forEach(r => displayReservation(r));
+  reservations.forEach(r => displayReservation(r));
 }
+
+
+// Edit a reservation
 
 function modifyReservation(Id) {
   modal.show();
