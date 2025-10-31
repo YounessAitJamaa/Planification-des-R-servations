@@ -1,4 +1,4 @@
-// Generate dropdown time options (08:00 → 19:00 every 15 min)
+// Generate time options
 const debut = document.getElementById("heureDebut");
 const fin = document.getElementById("heureFin");
 
@@ -16,7 +16,7 @@ for (let h = 8; h <= 19; h++) {
   }
 }
 
-// Generate time column (08:00 → 19:00)
+// Generate time column 
 const timeColumn = document.getElementById("timeColumn");
 for (let h = 8; h <= 19; h++) {
     for (let m = 0; m < 60; m += 15) {
@@ -30,23 +30,23 @@ for (let h = 8; h <= 19; h++) {
     }
 }
 
-// Generate time slots for each day
-function generateDaySlots(dayId) {
+// Generate time space for each day
+function generateDaySpaces(dayId) {
     const dayDiv = document.getElementById(dayId);
     for (let h = 8; h <= 19; h++) {
     for (let m = 0; m < 60; m += 15) {
         if (h === 19 && m > 0) break;
         const hh = h.toString().padStart(2, "0");
         const mm = m.toString().padStart(2, "0");
-        const slot = document.createElement("div");
-        slot.className = "time-slot";
-        slot.dataset.time = `${hh}:${mm}`;
-        dayDiv.appendChild(slot);
+        const space = document.createElement("div");
+        space.className = "time-space";
+        space.dataset.time = `${hh}:${mm}`;
+        dayDiv.appendChild(space);
     }
     }
 }
 
-["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"].forEach(day => generateDaySlots(day));
+["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"].forEach(day => generateDaySpaces(day));
 
 
 // Load reservations from localStorage
@@ -57,8 +57,8 @@ function loadReservations() {
 
 // Display a reservation in the calendar
 function displayReservation(r) {
-  const slot = document.querySelector(`#${r.jour} .time-slot[data-time="${r.heureDebut}"]`);
-  if (!slot) return;
+  const spcae = document.querySelector(`#${r.jour} .time-space[data-time="${r.heureDebut}"]`);
+  if (!spcae) return;
 
   const event = document.createElement("div");
   event.className = `event ${r.type}`;
@@ -69,32 +69,36 @@ function displayReservation(r) {
    let show = false;
 
   event.addEventListener('click', () => { 
-   
+        event.setAttribute("data-bs-toggle", 'modal');
+        event.setAttribute("data-bs-target", '#information');
+        const infoModal = bootstrap.Modal.getInstance(document.getElementById('information'));
 
-    if (!show) { 
-        event.innerHTML = `
-            <strong>${r.nom}</strong><br>
-            ${r.heureDebut} → ${r.heureFin}<br>
-            ${r.nbPers} pers • ${r.type}
-        `;
-        show = true;
-    }
+        if (!show) { 
+ 
+            event.innerHTML = `
+                <strong>${r.nom}</strong><br>
+                ${r.heureDebut} → ${r.heureFin}<br>
+                ${r.nbPers} pers • ${r.type}
+            `;
+            show = true;
+            infoModal.show();
+        }
 
-    else if (show) {
-        event.innerHTML = `
-            <strong>${r.nom}</strong><br>
-            ${r.heureDebut} → ${r.heureFin}<br>
-        `;
-        show = false;
-    }
-  })
+        else if (show) {
+            event.innerHTML = `
+                <strong>${r.nom}</strong><br>
+                ${r.heureDebut} → ${r.heureFin}<br>
+            `;
+            show = false;
+        }
+    })
 
 
 //   
-  slot.appendChild(event);
+  spcae.appendChild(event);
 }
 
-// Handle form submission
+// Handle form 
 
 document.getElementById("reservationForm").addEventListener("submit", function (e) {
   e.preventDefault();
@@ -106,20 +110,25 @@ document.getElementById("reservationForm").addEventListener("submit", function (
   const nbPers = document.getElementById("nombrePersonnes").value;
   const type = document.getElementById("typeReservation").value;
 
-  const reservation = { nom, jour, heureDebut, heureFin, nbPers, type };
+  const reservation = { nom,
+                        jour,
+                        heureDebut,
+                        heureFin,
+                        nbPers,
+                        type 
+                    };
 
   // Save to localStorage
   const reservations = JSON.parse(localStorage.getItem("reservations")) || [];
   reservations.push(reservation);
   localStorage.setItem("reservations", JSON.stringify(reservations));
 
-  // Display it immediately
+  // Display 
   displayReservation(reservation);
 
-  // Reset + close modal
-  document.getElementById("reservationForm").reset();
-  const modal = bootstrap.Modal.getInstance(document.getElementById('form'));
-  modal.hide();
+  document.getElementById("reservationForm").reset(); // Reset form
+  const modal = bootstrap.Modal.getInstance(document.getElementById('form')); 
+  modal.hide(); // Close modal
 });
 
 window.addEventListener("DOMContentLoaded", loadReservations);

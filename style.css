@@ -67,13 +67,13 @@ body {
     flex-direction: column;
 }
 
-.time-slot {
+.time-space {
     border-bottom: 1px solid hsla(240, 1%, 15%, 0.29);
     height: 50px;
     position: relative;
 }
 
-.time-slot:hover {
+.time-space:hover {
     background-color: #f8f9fa;
     cursor: pointer;
 }
