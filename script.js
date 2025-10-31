@@ -1,7 +1,12 @@
 // Generate time options
 const debut = document.getElementById("heureDebut");
 const fin = document.getElementById("heureFin");
-const modal = bootstrap.Modal.getInstance(document.getElementById('form'));
+
+const modalEl = document.getElementById('form');
+const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+
+const reservations = JSON.parse(localStorage.getItem("reservations")) || [];
+let editingId = null;
 
 for (let h = 8; h <= 19; h++) {
   for (let m = 0; m < 60; m += 30) {
@@ -50,13 +55,6 @@ function generateDaySpaces(dayId) {
 ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"].forEach(day => generateDaySpaces(day));
 
 
-// Load reservations from localStorage
-function loadReservations() {
-  const reservations = JSON.parse(localStorage.getItem("reservations")) || [];
-  reservations.forEach(r => displayReservation(r));
-}
-
-
 // Display a reservation in the calendar
 function displayReservation(r) {
   const spcae = document.querySelector(`#${r.jour} .time-space[data-time="${r.heureDebut}"]`);
@@ -68,26 +66,33 @@ function displayReservation(r) {
     <h5>${r.nom}</h5>
   `;
 //   
-  spcae.appendChild(event);
+  spcae.appendChild(event); 
+
+  event.addEventListener('click', () => {
+    modifyReservation(r.Id);
+  })
 }
 
 function modifyReservation(Id) {
+  modal.show();
 
-  for (let i = 0 ; i < reservations.length ; i++) {
-    if (reservations.Id === Id) {
-        document.getElementById("nomClient").value = i.nom;
-        document.getElementById("jour").value = i.jour;
-        document.getElementById("heureDebut").value = i.heureDebut;
-        document.getElementById("heureFin").value = i.heureFin;
-        document.getElementById("nombrePersonnes").value = i.nbPers;
-        document.getElementById("typeReservation").value = i.type;
-    }
-  }
+  const r = reservations.find(res => res.Id === Id);
+  if (!r) return;
+
+  document.getElementById("nomClient").value = r.nom;
+  document.getElementById("jour").value = r.jour;
+  document.getElementById("heureDebut").value = r.heureDebut;
+  document.getElementById("heureFin").value = r.heureFin;
+  document.getElementById("nombrePersonnes").value = r.nbPers;
+  document.getElementById("typeReservation").value = r.type;
+
+  editingId = Id;
+
+  modal.show();
 
 }
 
-// Handle form 
-   let Id = 0;
+
 document.getElementById("reservationForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -99,19 +104,35 @@ document.getElementById("reservationForm").addEventListener("submit", function (
   const nbPers = document.getElementById("nombrePersonnes").value;
   const type = document.getElementById("typeReservation").value;
 
-  const reservation = { Id : Id + 1,
-                        nom,
-                        jour,
-                        heureDebut,
-                        heureFin,
-                        nbPers,
-                        type 
-                    };
+  if(editingId) {
+    const index = reservations.findIndex(r => r.Id == editingId);
+    if (index !== -1) {
+      reservations[index] = {Id: editingId, nom, jour, heureDebut, heureFin, nbPers, type };
+      localStorage.setItem("reservations", JSON.stringify(reservations));
+      editingId = null;
 
-                    
+      document.querySelectorAll(".event").forEach(e => e.remove());
+      reservations.forEach(r => displayReservation(r));
+
+      modal.hide();
+      document.getElementById("reservationForm").reset();
+      return;
+    }
+  }
+
+  const reservation = { 
+    Id: Date.now(), 
+    nom,
+    jour,
+    heureDebut,
+    heureFin,
+    nbPers,
+    type
+  };
+
+
 
   // Save to localStorage
-  const reservations = JSON.parse(localStorage.getItem("reservations")) || [];
   reservations.push(reservation);
   localStorage.setItem("reservations", JSON.stringify(reservations));
 
@@ -123,5 +144,10 @@ document.getElementById("reservationForm").addEventListener("submit", function (
   modal.hide(); // Close modal
 
   Id++;
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  const savedReservations = JSON.parse(localStorage.getItem("reservations")) || [];
+  savedReservations.forEach(r => displayReservation(r));
 });
 
