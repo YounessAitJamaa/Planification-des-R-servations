@@ -64,6 +64,7 @@ function displayReservation(r) {
   event.className = `event ${r.type}`;
   event.innerHTML = `
     <h5>${r.nom}</h5>
+    <button class='btn-close delete'></button>
   `;
 //   
   spcae.appendChild(event); 
@@ -71,6 +72,24 @@ function displayReservation(r) {
   event.addEventListener('click', () => {
     modifyReservation(r.Id);
   })
+
+  const deleteBtn = document.querySelector('.delete');
+  deleteBtn.addEventListener('click', () => {
+    deleteReservation(r.Id);
+  });
+}
+
+
+function deleteReservation(Id){ 
+  const index = reservations.findIndex(r => r.Id === Id);
+  if (index !== 1) return;
+
+  reservations.splice(index, 1);
+
+  localStorage.setItem('reservation', JSON.stringify(reservations));
+  
+  document.querySelectorAll('.event').forEach(e => e.remove());
+  eservations.forEach(r => displayReservation(r));
 }
 
 function modifyReservation(Id) {
@@ -129,8 +148,6 @@ document.getElementById("reservationForm").addEventListener("submit", function (
     nbPers,
     type
   };
-
-
 
   // Save to localStorage
   reservations.push(reservation);

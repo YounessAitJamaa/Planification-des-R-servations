@@ -90,6 +90,12 @@ body {
     border-radius: 6px;
     background-color: #e8f0fe;
     border-left: 4px solid #4285f4;
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete {
+    margin-top: 5px;
 }
 
 .event.Vip {
