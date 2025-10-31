@@ -133,7 +133,7 @@ document.getElementById("reservationForm").addEventListener("submit", function (
   const type = document.getElementById("typeReservation").value;
 
   // Validation for name
-  if (nom.trim() == "" || nom.startsWith(" ") || nom.trim().length < 3) {
+  if (nom.trim() == "" || nom.startsWith(" ") || nom.trim().length < 3 || !isNaN(nom[0])) {
     alert('Le nom ne peut pas être vide ou commencer par un espace !');
     return;
   }
@@ -187,9 +187,21 @@ document.getElementById("reservationForm").addEventListener("submit", function (
   document.getElementById("reservationForm").reset(); // Reset form
    
   modal.hide(); // Close modal
-
-  Id++;
 });
+
+document.querySelectorAll('.time-space').forEach(space => {
+  space.addEventListener('click', () => {
+    const parentDiv = space.closest('.day');
+    const dayName = parentDiv.id;
+    const time = space.dataset.time; 
+
+    document.getElementById('jour').value = dayName;
+    document.getElementById('heureDebut').value = time;
+
+    modal.show();
+  })
+})
+
 
 // saved Reservations to show
 const savedReservations = JSON.parse(localStorage.getItem("reservations")) || [];
