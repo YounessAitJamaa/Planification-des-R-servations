@@ -1,9 +1,10 @@
 // Generate time options
 const debut = document.getElementById("heureDebut");
 const fin = document.getElementById("heureFin");
+const modal = bootstrap.Modal.getInstance(document.getElementById('form'));
 
 for (let h = 8; h <= 19; h++) {
-  for (let m = 0; m < 60; m += 15) {
+  for (let m = 0; m < 60; m += 30) {
     if (h === 19 && m > 0) break;
     const hh = h.toString().padStart(2, '0');
     const mm = m.toString().padStart(2, '0');
@@ -19,7 +20,7 @@ for (let h = 8; h <= 19; h++) {
 // Generate time column 
 const timeColumn = document.getElementById("timeColumn");
 for (let h = 8; h <= 19; h++) {
-    for (let m = 0; m < 60; m += 15) {
+    for (let m = 0; m < 60; m += 30) {
     if (h === 19 && m > 0) break;
     const hh = h.toString().padStart(2, "0");
     const mm = m.toString().padStart(2, "0");
@@ -34,7 +35,7 @@ for (let h = 8; h <= 19; h++) {
 function generateDaySpaces(dayId) {
     const dayDiv = document.getElementById(dayId);
     for (let h = 8; h <= 19; h++) {
-    for (let m = 0; m < 60; m += 15) {
+    for (let m = 0; m < 60; m += 30) {
         if (h === 19 && m > 0) break;
         const hh = h.toString().padStart(2, "0");
         const mm = m.toString().padStart(2, "0");
@@ -55,6 +56,7 @@ function loadReservations() {
   reservations.forEach(r => displayReservation(r));
 }
 
+
 // Display a reservation in the calendar
 function displayReservation(r) {
   const spcae = document.querySelector(`#${r.jour} .time-space[data-time="${r.heureDebut}"]`);
@@ -63,46 +65,33 @@ function displayReservation(r) {
   const event = document.createElement("div");
   event.className = `event ${r.type}`;
   event.innerHTML = `
-    <strong>${r.nom}</strong><br>
-    ${r.heureDebut} → ${r.heureFin}<br>
+    <h5>${r.nom}</h5>
   `;
-   let show = false;
-
-  event.addEventListener('click', () => { 
-        event.setAttribute("data-bs-toggle", 'modal');
-        event.setAttribute("data-bs-target", '#information');
-        const infoModal = bootstrap.Modal.getInstance(document.getElementById('information'));
-
-        if (!show) { 
- 
-            event.innerHTML = `
-                <strong>${r.nom}</strong><br>
-                ${r.heureDebut} → ${r.heureFin}<br>
-                ${r.nbPers} pers • ${r.type}
-            `;
-            show = true;
-            infoModal.show();
-        }
-
-        else if (show) {
-            event.innerHTML = `
-                <strong>${r.nom}</strong><br>
-                ${r.heureDebut} → ${r.heureFin}<br>
-            `;
-            show = false;
-        }
-    })
-
-
 //   
   spcae.appendChild(event);
 }
 
-// Handle form 
+function modifyReservation(Id) {
 
+  for (let i = 0 ; i < reservations.length ; i++) {
+    if (reservations.Id === Id) {
+        document.getElementById("nomClient").value = i.nom;
+        document.getElementById("jour").value = i.jour;
+        document.getElementById("heureDebut").value = i.heureDebut;
+        document.getElementById("heureFin").value = i.heureFin;
+        document.getElementById("nombrePersonnes").value = i.nbPers;
+        document.getElementById("typeReservation").value = i.type;
+    }
+  }
+
+}
+
+// Handle form 
+   let Id = 0;
 document.getElementById("reservationForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
+ 
   const nom = document.getElementById("nomClient").value;
   const jour = document.getElementById("jour").value;
   const heureDebut = document.getElementById("heureDebut").value;
@@ -110,13 +99,16 @@ document.getElementById("reservationForm").addEventListener("submit", function (
   const nbPers = document.getElementById("nombrePersonnes").value;
   const type = document.getElementById("typeReservation").value;
 
-  const reservation = { nom,
+  const reservation = { Id : Id + 1,
+                        nom,
                         jour,
                         heureDebut,
                         heureFin,
                         nbPers,
                         type 
                     };
+
+                    
 
   // Save to localStorage
   const reservations = JSON.parse(localStorage.getItem("reservations")) || [];
@@ -127,8 +119,9 @@ document.getElementById("reservationForm").addEventListener("submit", function (
   displayReservation(reservation);
 
   document.getElementById("reservationForm").reset(); // Reset form
-  const modal = bootstrap.Modal.getInstance(document.getElementById('form')); 
+   
   modal.hide(); // Close modal
+
+  Id++;
 });
 
-window.addEventListener("DOMContentLoaded", loadReservations);
