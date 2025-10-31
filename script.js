@@ -132,6 +132,7 @@ document.getElementById("reservationForm").addEventListener("submit", function (
   const nbPers = document.getElementById("nombrePersonnes").value;
   const type = document.getElementById("typeReservation").value;
 
+  // Validation for name
   if (nom.trim() == "" || nom.startsWith(" ") || nom.trim().length < 3) {
     alert('Le nom ne peut pas être vide ou commencer par un espace !');
     return;
@@ -143,11 +144,13 @@ document.getElementById("reservationForm").addEventListener("submit", function (
     return;
   }
 
+  // Validation for nombre de personnes
   if (nbPers < 1) {
     alert('Le nombre de personnes doit être supérieur ou égal à 1.');
     return;
   }
 
+  // Modification condition 
   if(editingId) {
     const index = reservations.findIndex(r => r.Id == editingId);
     if (index !== -1) {
@@ -188,8 +191,6 @@ document.getElementById("reservationForm").addEventListener("submit", function (
   Id++;
 });
 
-window.addEventListener("DOMContentLoaded", () => {
-  const savedReservations = JSON.parse(localStorage.getItem("reservations")) || [];
-  savedReservations.forEach(r => displayReservation(r));
-});
-
+// saved Reservations to show
+const savedReservations = JSON.parse(localStorage.getItem("reservations")) || [];
+savedReservations.forEach(r => displayReservation(r));
