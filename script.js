@@ -221,3 +221,13 @@ modalEl.addEventListener('hidden.bs.modal', () => {
 const savedReservations = JSON.parse(localStorage.getItem("reservations")) || [];
 savedReservations.forEach(r => displayReservation(r));
 
+
+const searchInput = document.getElementById("searchInput");
+
+searchInput.addEventListener("input", () => {
+  const value = searchInput.value.toLowerCase();
+
+  document.querySelectorAll(".event").forEach(e => e.remove());
+
+  reservations.filter(r => r.nom.toLowerCase().includes(value)).forEach(r => displayReservation(r));
+})
