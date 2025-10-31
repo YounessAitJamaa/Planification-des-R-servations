@@ -100,7 +100,6 @@ function deleteReservation(Id){
   reservations.forEach(r => displayReservation(r));
 }
 
-
 // Edit a reservation
 
 function modifyReservation(Id) {
@@ -132,6 +131,11 @@ document.getElementById("reservationForm").addEventListener("submit", function (
   const heureFin = document.getElementById("heureFin").value;
   const nbPers = document.getElementById("nombrePersonnes").value;
   const type = document.getElementById("typeReservation").value;
+
+  if (heureDebut > heureFin) {
+        alert("L'heure de fin doit être après l'heure de début !");
+    return;
+  }
 
   if(editingId) {
     const index = reservations.findIndex(r => r.Id == editingId);
