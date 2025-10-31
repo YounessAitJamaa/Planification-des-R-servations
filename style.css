@@ -39,7 +39,7 @@ body {
 /* Days grid */
 .days-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(7, 1fr);
     gap: 10px;
     flex: 1;
 }
@@ -111,4 +111,11 @@ body {
 .event.Standard {
     border-left-color: #34a853;
     background-color: #e6f4ea;
+}
+
+.disabled-day {
+  pointer-events: none; /* disable clicks inside */
+  opacity: 0.5; /* make it look grayed out */
+  position: relative;
+  background-color: rgba(128, 128, 128, 0.438);
 }

@@ -52,7 +52,13 @@ function generateDaySpaces(dayId) {
     }
 }
 
-["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"].forEach(day => generateDaySpaces(day));
+["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"].forEach(day => {
+  generateDaySpaces(day);
+
+  if (day === "Samedi" || day === "Dimanche") {
+    document.getElementById(day).classList.add('disabled-day');
+  }
+});
 
 
 // Display a reservation in the calendar
