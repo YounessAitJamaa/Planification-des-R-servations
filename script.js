@@ -202,7 +202,7 @@ document.querySelectorAll('.time-space').forEach(space => {
   })
 })
 
-
 // saved Reservations to show
 const savedReservations = JSON.parse(localStorage.getItem("reservations")) || [];
 savedReservations.forEach(r => displayReservation(r));
+
