@@ -126,7 +126,6 @@ function modifyReservation(Id) {
 document.getElementById("reservationForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
- 
   const nom = document.getElementById("nomClient").value;
   const jour = document.getElementById("jour").value;
   const heureDebut = document.getElementById("heureDebut").value;

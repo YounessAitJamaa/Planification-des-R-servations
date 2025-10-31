@@ -119,3 +119,22 @@ body {
   position: relative;
   background-color: rgba(128, 128, 128, 0.438);
 }
+
+
+@media (max-width : 768px) {
+
+    .days-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        flex: 1;
+    }
+
+    .time-column  {
+        display: none;
+    }
+
+    .calendar-header {
+        flex-direction: column;
+    }
+}
